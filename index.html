@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Happy Birthday Beautiful! 💕</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        :root {
+            --primary-pink: #ff6b9d;
+            --primary-purple: #667eea;
+            --primary-blue: #4facfe;
+            --gold: #ffd700;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 25%, #667eea 50%, #764ba2 75%, #f093fb 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 20s ease infinite;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Confetti Animation */
+        .confetti {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            background: var(--gold);
+            position: absolute;
+            animation: confettiFall linear infinite;
+            z-index: 1;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 15px;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 30px 15px;
+            animation: fadeInDown 1s ease;
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .birthday-title {
+            font-size: clamp(2rem, 8vw, 4.5rem);
+            font-weight: 900;
+            color: var(--white);
+            text-shadow: 4px 4px 8px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3);
+            margin-bottom: 15px;
+            animation: pulse 2s ease-in-out infinite;
+            letter-spacing: 2px;
+        }
+
+        @keyframes pulse {
+            0%, 100% { 
+                transform: scale(1);
+                text-shadow: 4px 4px 8px rgba(0,0,0,0.4), 0 0 20px rgba(255,255,255,0.3);
+            }
+            50% { 
+                transform: scale(1.05);
+                text-shadow: 4px 4px 12px rgba(0,0,0,0.5), 0 0 30px rgba(255,255,255,0.5);
+            }
+        }
+
+        .subtitle {
+            font-size: clamp(1rem, 4vw, 1.8rem);
+            color: var(--white);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            margin-bottom: 30px;
+            font-weight: 300;
+        }
+
+        /* Quote Section */
+        .quotes-section {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 35px 25px;
+            margin: 25px 0;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3), 0 0 30px rgba(255,107,157,0.2);
+            animation: fadeInUp 1s ease 0.3s both;
+            backdrop-filter: blur(10px);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quotes-title {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            background: linear-gradient(135deg, #ff6b9d 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 30px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .quote-card {
+            background: linear-gradient(135deg, #ff6b9d 0%, #c44569 50%, #667eea 100%);
+            color: white;
+            padding: 30px 25px;
+            border-radius: 20px;
+            margin: 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3), inset 0 0 20px rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: slideIn 0.8s ease both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .quote-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 70%);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-50%, -50%) rotate(0deg); }
+            50% { transform: translate(-50%, -50%) rotate(180deg); }
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-50px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0) scale(1);
+            }
+        }
+
+        .quote-card:active {
+            transform: scale(0.98);
+        }
+
+        .quote-text {
+            font-size: clamp(1.1rem, 3vw, 1.6rem);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: 15px;
+            position: relative;
+            z-index: 1;
+            font-weight: 500;
+        }
+
+        .quote-author {
+            text-align: right;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            font-weight: 600;
+        }
+
+        /* Image Gallery */
+        .gallery-section {
+            background: rgba(255, 255, 255, 0.98);
+            border-radius: 25px;
+            padding: 35px 20px;
+            margin: 25px 0;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.3), 0 0 30px rgba(102,126,234,0.2);
+            animation: fadeInUp 1s ease 0.6s both;
+            backdrop-filter: blur(10px);
+        }
+
+        .gallery-title {
+            font-size: clamp(1.8rem, 5vw, 2.8rem);
+            background: linear-gradient(135deg, #ff6b9d 0%, #667eea 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-item {
+            position: relative;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.25);
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            animation: zoomIn 0.6s ease both;
+            aspect-ratio: 1;
+            cursor: pointer;
+            background: #f0f0f0;
+        }
+
+        .gallery-item:nth-child(1) { animation-delay: 0.1s; }
+        .gallery-item:nth-child(2) { animation-delay: 0.15s; }
+        .gallery-item:nth-child(3) { animation-delay: 0.2s; }
+        .gallery-item:nth-child(4) { animation-delay: 0.25s; }
+        .gallery-item:nth-child(5) { animation-delay: 0.3s; }
+        .gallery-item:nth-child(6) { animation-delay: 0.35s; }
+        .gallery-item:nth-child(7) { animation-delay: 0.4s; }
+        .gallery-item:nth-child(8) { animation-delay: 0.45s; }
+        .gallery-item:nth-child(9) { animation-delay: 0.5s; }
+        .gallery-item:nth-child(10) { animation-delay: 0.55s; }
+
+        @keyframes zoomIn {
+            from {
+                opacity: 0;
+                transform: scale(0.5) rotate(-10deg);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) rotate(0deg);
+            }
+        }
+
+        .gallery-item:active {
+            transform: scale(0.95);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.4s ease;
+            display: block;
+        }
+
+        /* Lightbox Modal */
+        .lightbox {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px);
+            animation: fadeIn 0.3s ease;
+            overflow: hidden;
+            touch-action: pan-y;
+        }
+
+        .lightbox.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .lightbox-content {
+            position: relative;
+            max-width: 95%;
+            max-height: 95%;
+            margin: auto;
+            animation: zoomInModal 0.3s ease;
+        }
+
+        @keyframes zoomInModal {
+            from {
+                transform: scale(0.5);
+                opacity: 0;
+            }
+            to {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .lightbox-img {
+            max-width: 100%;
+            max-height: 90vh;
+            width: auto;
+            height: auto;
+            object-fit: contain;
+            border-radius: 10px;
+            box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: var(--white);
+            font-size: 40px;
+            font-weight: bold;
+            cursor: pointer;
+            z-index: 10000;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .lightbox-close:hover,
+        .lightbox-close:active {
+            background: rgba(255,255,255,0.3);
+            transform: rotate(90deg) scale(1.1);
+        }
+
+        .lightbox-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--white);
+            font-size: 30px;
+            font-weight: bold;
+            cursor: pointer;
+            padding: 15px 20px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        .lightbox-nav:hover,
+        .lightbox-nav:active {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .lightbox-prev {
+            left: 20px;
+        }
+
+        .lightbox-next {
+            right: 20px;
+        }
+
+        /* Floating Balloons */
+        .balloon {
+            position: fixed;
+            width: clamp(40px, 8vw, 70px);
+            height: clamp(60px, 12vw, 100px);
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: float 6s ease-in-out infinite;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .balloon::before {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: clamp(60px, 12vw, 100px);
+            background: rgba(255,255,255,0.6);
+        }
+
+        .balloon1 {
+            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
+            left: 5%;
+            animation-delay: 0s;
+        }
+
+        .balloon2 {
+            background: linear-gradient(135deg, #4ecdc4, #6ee5dc);
+            left: 15%;
+            animation-delay: 1s;
+        }
+
+        .balloon3 {
+            background: linear-gradient(135deg, #ffe66d, #ffed8a);
+            right: 15%;
+            left: auto;
+            animation-delay: 2s;
+        }
+
+        .balloon4 {
+            background: linear-gradient(135deg, #ff6b9d, #ff8fb3);
+            right: 5%;
+            left: auto;
+            animation-delay: 1.5s;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            50% {
+                transform: translateY(-40px) rotate(5deg);
+            }
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 25px 15px;
+            color: var(--white);
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            text-shadow: 2px 2px 6px rgba(0,0,0,0.4);
+            animation: fadeIn 1s ease 1s both;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Sparkle Effect */
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--white);
+            border-radius: 50%;
+            animation: sparkle 2s ease-in-out infinite;
+            box-shadow: 0 0 10px var(--gold);
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0;
+                transform: scale(0);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.5);
+            }
+        }
+
+        /* Touch-friendly improvements */
+        @media (hover: none) and (pointer: coarse) {
+            .gallery-item:hover {
+                transform: none;
+            }
+            
+            .quote-card:hover {
+                transform: none;
+            }
+        }
+
+        /* Mobile Optimizations */
+        @media (max-width: 768px) {
+            .container {
+                padding: 10px;
+            }
+
+            .header {
+                padding: 20px 10px;
+            }
+
+            .quotes-section,
+            .gallery-section {
+                padding: 25px 15px;
+                border-radius: 20px;
+            }
+
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 10px;
+            }
+
+            .lightbox-close {
+                top: 10px;
+                right: 15px;
+                font-size: 35px;
+                width: 45px;
+                height: 45px;
+            }
+
+            .lightbox-nav {
+                font-size: 25px;
+                padding: 12px 16px;
+            }
+
+            .lightbox-prev {
+                left: 10px;
+            }
+
+            .lightbox-next {
+                right: 10px;
+            }
+
+            .balloon {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .gallery {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 8px;
+            }
+
+            .quote-card {
+                padding: 25px 20px;
+            }
+        }
+
+        /* Landscape mobile */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .header {
+                padding: 15px 10px;
+            }
+
+            .birthday-title {
+                font-size: 2rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating Balloons -->
+    <div class="balloon balloon1"></div>
+    <div class="balloon balloon2"></div>
+    <div class="balloon balloon3"></div>
+    <div class="balloon balloon4"></div>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1 class="birthday-title">🎂 Happy Birthday Beautiful! 💕</h1>
+            <p class="subtitle">You make every day special, but today is all about you! ✨</p>
+        </div>
+
+        <!-- Birthday Quote Section -->
+        <div class="quotes-section">
+            <h2 class="quotes-title">💝 My Heart's Message</h2>
+            
+            <div class="quote-card">
+                <p class="quote-text">"My beautiful Princess, on your special day, I want you to know that you are the most amazing person in my life. Every moment with you is a gift, and I'm so grateful to celebrate another year of your incredible journey. You bring so much joy, laughter, and love into my world. Happy Birthday, Princess! May this year bring you endless happiness, beautiful memories, and all your dreams come true. 💖"</p>
+                <p class="quote-author">- With all My Friend love Version ❤️</p>
+            </div>
+        </div>
+
+        <!-- Image Gallery Section -->
+        <div class="gallery-section">
+            <h2 class="gallery-title">📸 Your Beautiful Memories</h2>
+            <div class="gallery" id="gallery">
+                <div class="gallery-item" data-index="0">
+                    <img src="images/photo1.jpeg" alt="Memory 1" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="1">
+                    <img src="images/photo2.jpeg" alt="Memory 2" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="2">
+                    <img src="images/photo3.jpeg" alt="Memory 3" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="3">
+                    <img src="images/photo4.jpeg" alt="Memory 4" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="4">
+                    <img src="images/photo18.jpeg" alt="Memory 5" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="5">
+                    <img src="images/photo6.jpeg" alt="Memory 6" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="6">
+                    <img src="images/photo13.jpeg" alt="Memory 7" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="7">
+                    <img src="images/photo8.jpeg" alt="Memory 8" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="8">
+                    <img src="images/photo7.jpeg" alt="Memory 9" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="9">
+                    <img src="images/photo10.jpeg" alt="Memory 10" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="10">
+                    <img src="images/photo17.jpeg" alt="Memory 11" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="11">
+                    <img src="images/photo11.jpeg" alt="Memory 12" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="12">
+                    <img src="images/photo14.jpeg" alt="Memory 13" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="13">
+                    <img src="images/photo5.jpeg" alt="Memory 14" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="14">
+                    <img src="images/photo9.jpeg" alt="Memory 15" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="15">
+                    <img src="images/photo15.jpeg" alt="Memory 16" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="16">
+                    <img src="images/photo12.jpeg" alt="Memory 17" loading="lazy">
+                </div>
+                <div class="gallery-item" data-index="17">
+                    <img src="images/photo16.jpeg" alt="Memory 18" loading="lazy">
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="footer">
+            <p>🎈 Made with All My Love for You 🎈</p>
+            <p style="margin-top: 10px; font-size: clamp(0.85rem, 2.5vw, 1rem);">You're the most beautiful person I know! 💕</p>
+            <p style="margin-top: 10px; font-size: clamp(0.85rem, 2.5vw, 1rem);">Aava de re anand I am still waiting for green flag! 💕</p>
+        </div>
+    </div>
+
+    <!-- Lightbox Modal -->
+    <div class="lightbox" id="lightbox">
+        <span class="lightbox-close" id="lightboxClose">&times;</span>
+        <span class="lightbox-nav lightbox-prev" id="lightboxPrev">&#8249;</span>
+        <span class="lightbox-nav lightbox-next" id="lightboxNext">&#8250;</span>
+        <div class="lightbox-content">
+            <img class="lightbox-img" id="lightboxImg" src="" alt="">
+        </div>
+    </div>
+
+    <script>
+        // Create confetti effect
+        function createConfetti() {
+            const colors = ['#ffd700', '#ff6b6b', '#4ecdc4', '#ffe66d', '#ff6b9d', '#95e1d3', '#f38181', '#667eea'];
+            const confettiCount = 60;
+
+            for (let i = 0; i < confettiCount; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.width = (Math.random() * 12 + 6) + 'px';
+                    confetti.style.height = confetti.style.width;
+                    confetti.style.animationDuration = (Math.random() * 4 + 2) + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    document.body.appendChild(confetti);
+
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 6000);
+                }, i * 80);
+            }
+        }
+
+        // Create sparkles
+        function createSparkles() {
+            setInterval(() => {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                document.body.appendChild(sparkle);
+
+                setTimeout(() => {
+                    sparkle.remove();
+                }, 2000);
+            }, 400);
+        }
+
+        // Lightbox functionality
+        const lightbox = document.getElementById('lightbox');
+        const lightboxImg = document.getElementById('lightboxImg');
+        const lightboxClose = document.getElementById('lightboxClose');
+        const lightboxPrev = document.getElementById('lightboxPrev');
+        const lightboxNext = document.getElementById('lightboxNext');
+        const galleryItems = document.querySelectorAll('.gallery-item img');
+        let currentImageIndex = 0;
+
+        // Open lightbox
+        function openLightbox(index) {
+            currentImageIndex = index;
+            lightboxImg.src = galleryItems[index].src;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close lightbox
+        function closeLightbox() {
+            lightbox.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        // Navigate images
+        function showNextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryItems.length;
+            lightboxImg.src = galleryItems[currentImageIndex].src;
+        }
+
+        function showPrevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryItems.length) % galleryItems.length;
+            lightboxImg.src = galleryItems[currentImageIndex].src;
+        }
+
+        // Event listeners for gallery items
+        document.querySelectorAll('.gallery-item').forEach((item, index) => {
+            item.addEventListener('click', () => openLightbox(index));
+            item.addEventListener('touchend', (e) => {
+                e.preventDefault();
+                openLightbox(index);
+            });
+        });
+
+        // Lightbox controls
+        lightboxClose.addEventListener('click', closeLightbox);
+        lightboxNext.addEventListener('click', showNextImage);
+        lightboxPrev.addEventListener('click', showPrevImage);
+
+        // Close on background click
+        lightbox.addEventListener('click', (e) => {
+            if (e.target === lightbox) {
+                closeLightbox();
+            }
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (lightbox.classList.contains('active')) {
+                if (e.key === 'Escape') closeLightbox();
+                if (e.key === 'ArrowRight') showNextImage();
+                if (e.key === 'ArrowLeft') showPrevImage();
+            }
+        });
+
+        // Touch swipe for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        lightbox.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
+        });
+
+        lightbox.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    showNextImage();
+                } else {
+                    showPrevImage();
+                }
+            }
+        }
+
+        // Prevent image drag on mobile
+        galleryItems.forEach(img => {
+            img.addEventListener('dragstart', (e) => {
+                e.preventDefault();
+            });
+        });
+
+        // Initialize effects
+        createConfetti();
+        setInterval(createConfetti, 6000);
+        createSparkles();
+
+        // Detect mobile device
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        if (isMobile) {
+            document.body.classList.add('mobile-device');
+        }
+    </script>
+</body>
+</html>
